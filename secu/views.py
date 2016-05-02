@@ -75,25 +75,26 @@ def login(request):
             error_message = 'Username field needs a value.'
         elif passw == '':
             error_message = 'Password field needs a value.'
-        us = User.objects.filter(username=user)
-        if User.objects.filter(username=user).count() == 0:
+        query = "SELECT id, username, hashed_password FROM secu_user WHERE username=%s AND hashed_password=%s"
+        Us = ''
+        if User.objects.filter(username=user).count() > 0:
+            Us = User.objects.get(username=user)
+        pwd = passw + Us.salt if Us else ''
+        pwd = pwd.encode('utf-8')
+        hashed = hashlib.sha1(pwd).hexdigest()
+        us = User.objects.raw(query,[user,hashed])
+
+        if len(list(us)) == 0:
             error_message = 'User does not exists.'
         else:
-            pwd = passw + us[0].salt
-            pwd = pwd.encode('utf-8')
-            hashed = hashlib.sha1(pwd).hexdigest()
-            if hashed == us[0].hashed_password:
-                request.session['users'] = user
-                template = loader.get_template('secu/login_success.html')
-                context = {
-                    'users': user,
-                }
-                print (user)
-                print (context['users'])
-                return HttpResponse(template.render(context, request))
-
-            else:
-                error_message = 'Wrong user or password'
+            request.session['users'] = user
+            template = loader.get_template('secu/login_success.html')
+            context = {
+                'users': user,
+            }
+            print (user)
+            print (context['users'])
+            return HttpResponse(template.render(context, request))
         if error_message:
             return render_to_response('secu/login.html', {'error_message':error_message}, RequestContext(request))
 
