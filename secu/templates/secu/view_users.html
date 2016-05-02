@@ -1,0 +1,15 @@
+<h3>Active user accounts</h3>
+
+<table class="view-users-table">
+<tr>
+  <th>username</th>
+  <th>bitbars</th>
+</tr>
+{% for user in object_list %}
+<tr>
+  <td><p>{{ user.username }}</p></td>
+  <td><p>{{ user.bitbars }}</p></td>
+</tr>
+{% endfor %}
+
+</table>
