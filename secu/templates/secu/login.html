@@ -1,0 +1,22 @@
+{% extends "secu/base.html" %}
+
+{% block content %}
+
+<h3>Login</h3>
+
+<form id=login_form class=pure-form-stacked action "" method=post>
+
+    <div class="error">
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    </div>
+
+    <label for=username>Username</label>
+    <input type=text name=username />
+
+    <label for=password>Password</label>
+    <input type=password name=password />
+
+    <p><input id=login type=submit class=pure-button value=Login /></p>
+</form>
+
+{% endblock%}

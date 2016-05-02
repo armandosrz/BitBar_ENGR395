@@ -1,0 +1,66 @@
+{% load staticfiles %}
+
+
+
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="{% static 'secu/pure-min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'secu/style.css' %}" />
+<head>
+  <title>
+      Bitbar
+  </title>
+
+  <meta charset="UTF-8">
+
+      <script>
+      // Imperfect framebusting
+      if(top.location != self.location){
+              parent.location = self.location;
+      }
+      </script>
+
+</head>
+<body>
+
+<div class="container">
+
+  <div id="header">
+      <div id="titles">
+          <h1>Ƀitbar</h1>
+          <h3>The Crypto-Free Crypto Currency</h3>
+      </div>
+      <div id="navbar" class="pure-menu pure-menu-horizontal">
+          <ul class="pure-menu-list">
+              <li class="pure-menu-item"><a class="pure-menu-link" href="{% url 'secu.views.index' %}">Home</a></li>
+              <li class="pure-menu-item"><a class="pure-menu-link" href="{% url 'secu.views.transfer' %}">Transfer</a></li>
+              <li class="pure-menu-item"><a class="pure-menu-link" href="{%  url 'secu.views.close'%}" title="Close your account">Close</a></li>
+              <li class="pure-menu-item"><a class="pure-menu-link" href="{% url 'secu.views.profile' %}">Profile</a></li>
+          </ul>
+      </div>
+  </div>
+
+<div id="main" class="centerpiece">
+  <div class="login-status">
+      {% if users %}
+      <span class="login-status-text">Hi, <strong> {{users}}</strong></span>
+      <a href="{% url 'secu.views.logout' %}" class="button-primary pure-button">Log out</a>
+      {% else %}
+      <a href="{% url 'secu.views.login' %}" class="button-primary pure-button">Log in</a>
+      <a href="{% url 'secu.views.register' %}" class="button-primary pure-button">Register</a>
+      {% endif %}
+      </div>
+
+  <!-- page-specific content goes here -->
+  {% block content %}{% endblock %}
+  <!-- end page-specific content -->
+</div>
+
+</div>
+
+<div class="footer">
+Copyright Bitbar 2015
+</div>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{% extends "secu/base.html" %}
+
+{% block content %}
+<h3>Transfer Bitbars</h3>
+
+<p>Successfully transferred {{quantity}} bitbars from <strong> {{users}} </strong> to <strong>{{other_us}}.</strong> </p>
+
+<p>You now have {{bitbars}} bitbars.</p>
+
+<p> <strong>{{other_us}}</strong> now has {{other_us_bitbars}} bitbars.</p>
+
+{% endblock %}

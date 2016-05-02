@@ -1,0 +1,23 @@
+{% extends "secu/base.html" %}
+
+{% block content %}
+
+{% if users %}
+<h3>Home</h3>
+
+<p>You have <strong> {{ bitbars }}</strong> bitbars.</p>
+
+<form class="pure-form pure-form-stacked" action "" method="post">
+
+  <label for="new_profile">Your profile text</label>
+  <textarea name="new_profile" rows="8" cols="50">{{ profile }}</textarea>
+
+  <p><input class="pure-button button-primary" type="submit" value="Update profile"></p>
+</form>
+
+{% else %}
+<h3>Welcome to Bitbar</h3>
+
+<p>We are the most trusted crypto-currency on the Internet. Unlike Bitcoin which is unreliable due to its decentralized nature, we store all your valuable bits in a single secured SQLite database on our server. Everything is powered by Ruby on Rails so you know that it is safe. <a href="register">Sign up</a> for an account today!</p>
+{% endif %}
+{% endblock %}

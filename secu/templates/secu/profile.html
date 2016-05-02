@@ -1,0 +1,43 @@
+{% extends "secu/base.html" %}
+
+{% block content %}
+
+<h3>View profile</h3>
+
+<form class="pure-form" action="/profile/" method="get">
+    <input type="text" name="username" placeholder="username">
+    <input class="pure-button button-primary" type="submit" value="Show">
+</form>
+
+<div class="error">
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+</div>
+
+{% if users %}
+    {% if users == logged_in_user %}
+        <h3>Your profile</h3>
+    {% else %}
+        <h3>{{users}}'s profile</h3>
+    {% endif  %}
+
+    <p id="bitbar_display">0 bitbars</p>
+
+    {% if profile %}
+        <div id="profile">{{profile|striptags}}</div>
+    {% endif %}
+
+    <span id="bitbar_count" class="{{bitbars}}" />
+    <script type="text/javascript">
+      var total = eval(document.getElementById('bitbar_count').className);
+      function showBitbars(bitbars) {
+        document.getElementById("bitbar_display").innerHTML = bitbars + " bitbars";
+        if (bitbars < total) {
+          setTimeout("showBitbars(" + (bitbars + 1) + ")", 10);
+        }
+      }
+      if (total > 0) showBitbars(0);  // count up to total
+    </script>
+  {%endif%}
+
+
+{% endblock %}
