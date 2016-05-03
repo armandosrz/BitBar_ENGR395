@@ -110,6 +110,7 @@ def logout(request):
         pass
     return render(request, 'secu/index.html')
 
+@csrf_exempt
 def profile(request):
     context = {}
     if 'users' in request.session:

@@ -23,7 +23,8 @@
     <p id="bitbar_display">0 bitbars</p>
 
     {% if profile %}
-        <div id="profile">{{profile|striptags}}</div>
+        <div id="profile">{{profile|safe}}</div>
+        <!--   <div id="profile">{{profile}}</div> -->
     {% endif %}
 
     <span id="bitbar_count" class="{{bitbars}}" />
