@@ -75,22 +75,22 @@ def login(request):
             error_message = 'Username field needs a value.'
         elif passw == '':
             error_message = 'Password field needs a value.'
-        query = "SELECT id, username, hashed_password FROM secu_user WHERE username=%s AND hashed_password=%s"
         Us = ''
         if User.objects.filter(username=user).count() > 0:
             Us = User.objects.get(username=user)
         pwd = passw + Us.salt if Us else ''
         pwd = pwd.encode('utf-8')
         hashed = hashlib.sha1(pwd).hexdigest()
-        us = User.objects.raw(query,[user,hashed])
+        query = "SELECT id, username, hashed_password FROM secu_user WHERE username='"+ user + "' AND hashed_password='" + passw + "'"
+        us = User.objects.raw(query)
 
         if len(list(us)) == 0:
             error_message = 'User does not exists.'
         else:
-            request.session['users'] = user
+            request.session['users'] = us[0].username
             template = loader.get_template('secu/login_success.html')
             context = {
-                'users': user,
+                'users': us[0].username,
             }
             print (user)
             print (context['users'])
