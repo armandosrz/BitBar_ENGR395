@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'foundation',
     'secu.apps.SecuConfig',
     'django.contrib.admin',
     'django.contrib.auth',

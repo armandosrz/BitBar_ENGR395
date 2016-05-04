@@ -3,10 +3,13 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from .models import User
 from django.views.decorators.csrf import csrf_exempt
+from django.views import generic
 import hashlib, uuid
 
 
-
+class ViewUser(generic.ListView):
+    model = User
+    template_name = 'secu/view_users.html'
 
 # Create your views here.
 @csrf_exempt
@@ -108,6 +111,7 @@ def logout(request):
         pass
     return render(request, 'secu/index.html')
 
+@csrf_exempt
 def profile(request):
     context = {}
     if 'users' in request.session:

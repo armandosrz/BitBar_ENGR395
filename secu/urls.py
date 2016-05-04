@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'profile/$', views.profile, name='profile'),
     url(r'close/$', views.close, name='close'),
     url(r'transfer/$', views.transfer, name='transfer'),
+    url(r'view_users/$', views.ViewUser.as_view(), name='view_users'),
 ]
